@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Afrikan Pink — Participation Badge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --pink: #D6336C;
+    --pink-deep: #9C1F52;
+    --gold: #F2A63A;
+    --rust: #C1440E;
+    --cream: #FBF3E7;
+    --ink: #1B1225;
+    --ink-soft: #4A3A4C;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(214,51,108,0.10), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(242,166,58,0.14), transparent 45%);
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  header{
+    margin-bottom: 44px;
+    text-align: center;
+  }
+
+  .eyebrow{
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.02;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em{
+    font-style: normal;
+    color: var(--pink);
+  }
+
+  header p{
+    max-width: 480px;
+    margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .layout{
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media (max-width: 860px){
+    .layout{ grid-template-columns: 1fr; }
+  }
+
+  .panel{
+    background: white;
+    border: 1px solid rgba(27,18,37,0.08);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 1px 2px rgba(27,18,37,0.04);
+  }
+
+  .field{ margin-bottom: 20px; }
+
+  label{
+    display:block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  input[type=text]{
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(27,18,37,0.15);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--cream);
+    outline: none;
+    transition: border-color .15s ease;
+  }
+
+  input[type=text]:focus{
+    border-color: var(--pink);
+  }
+
+  .hint{
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    opacity: 0.75;
+  }
+
+  select{
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(27,18,37,0.15);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--cream);
+    outline: none;
+  }
+
+  .swatches{
+    display:flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .swatch{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform .12s ease, border-color .12s ease;
+  }
+  .swatch:hover{ transform: translateY(-2px); }
+  .swatch.active{ border-color: var(--ink); }
+
+  button.download{
+    width: 100%;
+    margin-top: 6px;
+    padding: 15px 18px;
+    border: none;
+    border-radius: 10px;
+    background: var(--ink);
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background .15s ease, transform .1s ease;
+  }
+  button.download:hover{ background: var(--pink-deep); }
+  button.download:active{ transform: scale(0.99); }
+
+  .status{
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 10px;
+    min-height: 14px;
+  }
+
+  /* ---- Card ---- */
+  .stage{
+    display:flex;
+    justify-content:center;
+  }
+
+  .card{
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 4 / 5;
+    border-radius: 26px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(155deg, var(--pink) 0%, var(--pink-deep) 62%, #6E1439 100%);
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 30px 60px -20px rgba(156,31,82,0.45);
+  }
+
+  .card .pattern{
+    position: absolute;
+    inset: 0;
+    opacity: 0.16;
+    pointer-events: none;
+  }
+
+  .card-top{
+    position: relative;
+    z-index: 2;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .brand{
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+  .brand span{ color: var(--gold); }
+
+  .tag{
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+
+  .card-mid{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .seal{
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 22px;
+  }
+
+  .stamp-text{
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(30px, 6vw, 40px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+
+  .stamp-sub{
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+    opacity: 0.9;
+    max-width: 340px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+
+  .card-bottom{
+    position: relative;
+    z-index: 2;
+  }
+
+  .id-row{
+    border-top: 1px solid rgba(255,255,255,0.35);
+    padding-top: 16px;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .name-out{
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .handle-out{
+    font-size: 13.5px;
+    opacity: 0.9;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  .date-out{
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  footer{
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Afrikan Pink Survey</div>
+    <h1>Show that you <em>showed up</em>.</h1>
+    <p>Fill in your details, preview your badge, and download an image to share on your story.</p>
+  </header>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="field">
+        <label for="fullName">Your name</label>
+        <input type="text" id="fullName" placeholder="e.g. Amara Boateng" maxlength="40" />
+      </div>
+
+      <div class="field">
+        <label for="igHandle">Instagram username</label>
+        <input type="text" id="igHandle" placeholder="e.g. amara.b" maxlength="30" />
+        <div class="hint">No need to type the @ — we'll add it.</div>
+      </div>
+
+      <div class="field">
+        <label for="msgLine">Custom line <span style="opacity:.6; text-transform:none; font-weight:400;">(optional)</span></label>
+        <input type="text" id="msgLine" placeholder="e.g. Proud to add my voice" maxlength="60" />
+      </div>
+
+      <div class="field">
+        <label>Card color</label>
+        <div class="swatches" id="swatches">
+          <div class="swatch active" data-c1="#D6336C" data-c2="#9C1F52" data-c3="#6E1439" style="background:#D6336C"></div>
+          <div class="swatch" data-c1="#C1440E" data-c2="#8A2F0B" data-c3="#4E1706" style="background:#C1440E"></div>
+          <div class="swatch" data-c1="#7A2C8C" data-c2="#4E1B5C" data-c3="#2C0E35" style="background:#7A2C8C"></div>
+          <div class="swatch" data-c1="#1B1225" data-c2="#2E1E3A" data-c3="#120A1A" style="background:#1B1225"></div>
+        </div>
+      </div>
+
+      <button class="download" id="downloadBtn">Download my badge</button>
+      <div class="status" id="status"></div>
+    </div>
+
+    <div class="stage">
+      <div class="card" id="card">
+        <svg class="pattern" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="motif" width="50" height="50" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+              <path d="M25 4 L46 25 L25 46 L4 25 Z" fill="none" stroke="white" stroke-width="1.4"/>
+              <circle cx="25" cy="25" r="3.2" fill="white"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#motif)"/>
+        </svg>
+
+        <div class="card-top">
+          <div class="brand">Afrikan<span>Pink</span></div>
+          <div class="tag">Survey<br/>2026</div>
+        </div>
+
+        <div class="card-mid">
+          <svg class="seal" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="64" cy="64" r="60" fill="none" stroke="white" stroke-width="2" opacity="0.9"/>
+            <circle cx="64" cy="64" r="50" fill="none" stroke="white" stroke-width="1" stroke-dasharray="2 5" opacity="0.7"/>
+            <path d="M64 34 L96 64 L64 94 L32 64 Z" fill="none" stroke="white" stroke-width="1.5" opacity="0.85"/>
+            <path d="M46 64 L64 48 L82 64 L64 80 Z" fill="white" opacity="0.95"/>
+          </svg>
+          <p class="stamp-text">I participated</p>
+          <p class="stamp-sub" id="customLineOut">Added my voice to the Afrikan Pink survey.</p>
+        </div>
+
+        <div class="card-bottom">
+          <div class="id-row">
+            <div>
+              <div class="name-out" id="nameOut">Your Name</div>
+              <div class="handle-out" id="handleOut">@yourhandle</div>
+            </div>
+            <div class="date-out" id="dateOut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Badge generated for personal sharing · not an official verification of survey completion</footer>
+</div>
+
+<script>
+  const nameIn = document.getElementById('fullName');
+  const handleIn = document.getElementById('igHandle');
+  const msgIn = document.getElementById('msgLine');
+  const nameOut = document.getElementById('nameOut');
+  const handleOut = document.getElementById('handleOut');
+  const customLineOut = document.getElementById('customLineOut');
+  const dateOut = document.getElementById('dateOut');
+  const card = document.getElementById('card');
+  const swatches = document.querySelectorAll('.swatch');
+  const status = document.getElementById('status');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  function todayLabel(){
+    const d = new Date();
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+  dateOut.textContent = todayLabel();
+
+  function refresh(){
+    nameOut.textContent = nameIn.value.trim() || 'Your Name';
+    const h = handleIn.value.trim().replace(/^@/, '');
+    handleOut.textContent = '@' + (h || 'yourhandle');
+    customLineOut.textContent = msgIn.value.trim() || 'Added my voice to the Afrikan Pink survey.';
+  }
+
+  [nameIn, handleIn, msgIn].forEach(el => el.addEventListener('input', refresh));
+  refresh();
+
+  swatches.forEach(sw => {
+    sw.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('active'));
+      sw.classList.add('active');
+      const c1 = sw.dataset.c1, c2 = sw.dataset.c2, c3 = sw.dataset.c3;
+      card.style.background = `linear-gradient(155deg, ${c1} 0%, ${c2} 62%, ${c3} 100%)`;
+    });
+  });
+
+  downloadBtn.addEventListener('click', async () => {
+    status.textContent = 'Rendering image…';
+    downloadBtn.disabled = true;
+    try {
+      const canvas = await html2canvas(card, { scale: 3, backgroundColor: null, useCORS: true });
+      const link = document.createElement('a');
+      const handleSlug = (handleIn.value.trim().replace(/^@/, '') || 'badge').replace(/[^a-z0-9_.]/gi, '');
+      link.download = `afrikan-pink-badge-${handleSlug || 'me'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      status.textContent = 'Downloaded — ready to share.';
+    } catch (err) {
+      status.textContent = 'Something went wrong generating the image. Try again.';
+      console.error(err);
+    } finally {
+      downloadBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
